@@ -1,0 +1,29 @@
+#!/bin/bash
+
+MYUSER=`whoami` 
+echo ${MYUSER}
+
+upload()
+{
+	MYPID1=`ps -u ${MYUSER} | grep cloud_upload |awk {'print $1'}`
+		echo $MYPID1
+		kill -9  $MYPID1
+		make cloud-upload
+}
+data()
+{
+	MYPID1=`ps -u ${MYUSER} | grep cloud_data |awk {'print $1'}`
+		echo $MYPID1
+		kill -9  $MYPID1
+		make cloud-data
+}
+
+case "$1" in
+"upload")
+	upload;;
+"data")
+	data;;
+*)  
+	echo "input error";;
+esac
+
